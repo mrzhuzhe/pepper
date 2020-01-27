@@ -45,4 +45,4 @@ def compute_co_occurrence_matrix(corpus, window_size=4):
     # ------------------
     return M, word2Ind
 
-print(compute_co_occurrence_matrix(["START I am a pig , I am a dog END".split(' ')]))
+print("res", compute_co_occurrence_matrix(["START I am a pig , I am a dog END".split(' ')]))
