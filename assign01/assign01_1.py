@@ -20,7 +20,6 @@ def distinct_words(corpus):
     corpus_words.sort()
     # ------------------
 
-    return corpus_words, num_corpus_words
+    print("corpus_words",  "\n",  corpus_words, "\n", "num_corpus_words",  "\n",  num_corpus_words)
 
-# print(distinct_words("I am a pig , I am a dog"))
-# print(distinct_words("IamapigIamadog"))
+    return corpus_words, num_corpus_words
