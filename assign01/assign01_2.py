@@ -29,12 +29,12 @@ def compute_co_occurrence_matrix(corpus, window_size=4):
         word2Ind[word] = index
     M = np.zeros((len(words),len(words)))
     for index, word in enumerate(flattened_corpus):
-        print("index", index);
+        #print("index", index);
         left = max(0,index-window_size)
         right = min(len(flattened_corpus),index+window_size)
-        print("left", "right" , left, right);
+        #print("left", "right" , left, right);
         for i in range(left,right):
-            print(i);
+            #print(i);
             if i != index:
                 co_word = flattened_corpus[i]
                 if word in ["START","END"] and co_word in ["STRAT","END"]:
@@ -43,6 +43,11 @@ def compute_co_occurrence_matrix(corpus, window_size=4):
                     M[word2Ind[word]][word2Ind[co_word]] += 1.
                     M[word2Ind[co_word]][word2Ind[word]] += 1.
     # ------------------
+    print("M", "word2Ind", M, word2Ind)
     return M, word2Ind
 
-print("res", compute_co_occurrence_matrix(["START I am a pig , I am a dog END".split(' ')]))
+"""
+    input = ["START I am a pig , I am a dog , he is a rat, she is a cat, oldder is a snake END".split(' ')]
+    print("input", input)
+    print("res", compute_co_occurrence_matrix(input))
+"""

@@ -1,3 +1,6 @@
+from sklearn.decomposition import TruncatedSVD
+from assign01_2 import compute_co_occurrence_matrix
+
 def reduce_to_k_dim(M, k=2):
     """ Reduce a co-occurence count matrix of dimensionality (num_corpus_words, num_corpus_words)
         to a matrix of dimensionality (num_corpus_words, k) using the following SVD function from Scikit-Learn:
@@ -22,3 +25,10 @@ def reduce_to_k_dim(M, k=2):
 
     print("Done.")
     return M_reduced
+"""
+    input = ["START I am a pig , I am a dog END".split(' ')]
+    print("input", input)
+    M , word2Ind = compute_co_occurrence_matrix(input)
+    print("M", M)
+    print("res", reduce_to_k_dim(M))
+"""
