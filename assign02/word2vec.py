@@ -65,6 +65,8 @@ def naiveSoftmaxLossAndGradient(
     delta[outsideWordIdx] -= 1
 
     loss = -np.log(y_hat)[outsideWordIdx]
+
+    #   每次一到求梯度我就不太明白
     gradCenterVec = np.dot(delta, outsideVectors)
     gradOutsideVecs = np.dot(delta[:, np.newaxis], centerWordVec[np.newaxis, :])
 
@@ -132,6 +134,7 @@ def negSamplingLossAndGradient(
     z = sigmoid(np.dot(outsideVectors[outsideWordIdx], centerWordVec))
     loss -= np.log(z)
 
+    # 这个地方梯度不对 需要修改
     gradOutsideVecs[outsideWordIdx] += centerWordVec * (z - 1.0)
     gradCenterVec += outsideVectors[outsideWordIdx] * (z - 1.0)
 
