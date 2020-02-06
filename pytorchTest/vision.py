@@ -41,10 +41,10 @@ def init():
     #   images, labels = images.to(device), labels.to(device)
 
     # 训练
-    trainNN(trainloader)
+    #   trainNN(trainloader)
 
     # 交叉验证
-    validNN(testloader)
+    #   validNN(testloader)
 
     # 重新加载验证
     modelTest(testloader)
@@ -118,9 +118,9 @@ def modelTest(testloader):
     _, predicted = torch.max(outputs, 1)
     print('Predicted: ', ' '.join('%5s' % classes[predicted[j]]
                                   for j in range(4)))
-    showReslt(testloader)
+    showReslt(net, testloader)
 
-def showReslt(testloader):
+def showReslt(net, testloader):
     correct = 0
     total = 0
     with torch.no_grad():
