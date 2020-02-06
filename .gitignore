@@ -125,3 +125,6 @@ dmypy.json
 .pyre/
 
 assign02/utils/datasets
+
+data
+model

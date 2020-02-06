@@ -33,3 +33,14 @@ print(
      '[0.0] * 10' , '\n'
      , [0.0] * 10
     )
+
+
+def num_flat_features(x):
+    size = [[1,2],[3,4]]
+    num_features = 1
+    for s in size:
+        num_features *= s
+    return num_features
+
+print('A dot B' , '\n'
+, num_flat_features(A))
