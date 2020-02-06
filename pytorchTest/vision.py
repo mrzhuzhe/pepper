@@ -10,6 +10,7 @@ import torch.optim as optim
 
 # gpu
 device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
+print("device:", device)
 
 #  全局参数
 classes = ('plane', 'car', 'bird', 'cat',
@@ -27,12 +28,12 @@ def init():
     trainset = torchvision.datasets.CIFAR10(root='./data', train=True, transform=transform)
 
     trainloader = torch.utils.data.DataLoader(trainset, batch_size=4,
-                                              shuffle=True, num_workers=0)
+                                              shuffle=True, num_workers=1)
 
     testset = torchvision.datasets.CIFAR10(root='./data', train=False, transform=transform)
 
     testloader = torch.utils.data.DataLoader(testset, batch_size=4,
-                                             shuffle=False, num_workers=0)
+                                             shuffle=False, num_workers=1)
 
     # functions to show an image
     showExample(trainloader)
@@ -123,9 +124,13 @@ def modelTest(testloader):
 def showReslt(net, testloader):
     correct = 0
     total = 0
+
+    net.to(device)
+
     with torch.no_grad():
         for data in testloader:
             images, labels = data
+            images, labels = images.to(device), labels.to(device)
             outputs = net(images)
             _, predicted = torch.max(outputs.data, 1)
             total += labels.size(0)
@@ -139,6 +144,9 @@ def showReslt(net, testloader):
     with torch.no_grad():
         for data in testloader:
             images, labels = data
+
+            images, labels = images.to(device), labels.to(device)
+
             outputs = net(images)
             _, predicted = torch.max(outputs, 1)
             c = (predicted == labels).squeeze()
