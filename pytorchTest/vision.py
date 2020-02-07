@@ -11,6 +11,7 @@ import torch.optim as optim
 # gpu
 device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
 print("device:", device)
+print("Let's use", torch.cuda.device_count(), "GPUs!")
 
 #  全局参数
 classes = ('plane', 'car', 'bird', 'cat',
@@ -115,6 +116,8 @@ def modelTest(testloader):
     images, labels = dataiter.next()
     net = Net()
     net.load_state_dict(torch.load(PATH))
+    # 使用 gpu 还是 cpu 似乎需要用to明确的指定 使用多个gpu 似乎需要 DataParalize来明确指定给多gpu
+    # 多核 cpu gpu 如何指定使用多核呢
     outputs = net(images)
     _, predicted = torch.max(outputs, 1)
     print('Predicted: ', ' '.join('%5s' % classes[predicted[j]]
