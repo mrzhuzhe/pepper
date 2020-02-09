@@ -1,3 +1,5 @@
+# https://pytorch.org/tutorials/intermediate/char_rnn_classification_tutorial.html
+# https://github.com/spro/practical-pytorch/tree/master/char-rnn-classification
 import torch
 import time
 import math
@@ -15,20 +17,35 @@ print_every = 5000
 plot_every = 1000
 
 learning_rate = 0.005
+PATH = './model/lstmTestModel.pth'
 
 n_hidden = 128
+
+#
+"""
+print(findFiles('data/names/*.txt'))
+print(unicodeToAscii('Ślusàrski'))
+print(category_lines['Italian'][:5])
+"""
+
+# 现在rnn就是lstm
 rnn = RNN(n_letters, n_hidden, n_categories)
 
+"""
+#   one-hot encoding
+print(letterToTensor('J'))
+print(lineToTensor('Jones').size())
+
+# 输入转稀疏向量
 input = letterToTensor('A')
-hidden =torch.zeros(1, n_hidden)
+hidden = torch.zeros(1, n_hidden)
 
 output, next_hidden = rnn(input, hidden)
 
+print(output)
+
 input = lineToTensor('Albert')
 hidden = torch.zeros(1, n_hidden)
-
-# https://pytorch.org/tutorials/intermediate/char_rnn_classification_tutorial.html
-
 output, next_hidden = rnn(input[0], hidden)
 print(output)
 
@@ -37,13 +54,16 @@ print(categoryFromOutput(output))
 for i in range(10):
     category, line, category_tensor, line_tensor = randomTrainingExample()
     print('category =', category, '/ line =', line)
+"""
 
-# defint loss fn
+# negative log likehood fn
 criterion = nn.NLLLoss()
 
 def train(category_tensor, line_tensor):
+    # 还真是重新初始化隐藏层
     hidden = rnn.initHidden()
 
+    # 梯度先还原
     rnn.zero_grad()
 
     for i in range(line_tensor.size()[0]):
@@ -52,7 +72,7 @@ def train(category_tensor, line_tensor):
     loss = criterion(output, category_tensor)
     loss.backward()
 
-    # Add parameters' gradients to their values, multiplied by learning rate
+    # 一次更新所有参数
     for p in rnn.parameters():
         p.data.add_(-learning_rate, p.grad.data)
 
@@ -89,18 +109,16 @@ def predict(input_line, n_predictions=3):
             print('(%.2f) %s' % (value, all_categories[category_index]))
             predictions.append([value, all_categories[category_index]])
 
-def init():
+def runTainfn():
     # Keep track of losses for plotting
     current_loss = 0
     all_losses = []
 
-    # Keep track of correct guesses in a confusion matrix
-    confusion = torch.zeros(n_categories, n_categories)
-    n_confusion = 10000
-
     start = time.time()
 
+    # 训练
     for iter in range(1, n_iters + 1):
+        # minibatch
         category, line, category_tensor, line_tensor = randomTrainingExample()
         output, loss = train(category_tensor, line_tensor)
         current_loss += loss
@@ -115,9 +133,19 @@ def init():
         if iter % plot_every == 0:
             all_losses.append(current_loss / plot_every)
             current_loss = 0
-
+    # 保存训练结果
+    torch.save(rnn.state_dict(), PATH)
     plt.figure()
     plt.plot(all_losses)
+
+def showReslt():
+
+    # 弱类型引用形语言 直接load就行
+    rnn.load_state_dict(torch.load(PATH))
+
+    # Keep track of correct guesses in a confusion matrix
+    confusion = torch.zeros(n_categories, n_categories)
+    n_confusion = 10000
 
     # Go through a bunch of examples and record which are correctly guessed
     for i in range(n_confusion):
@@ -125,6 +153,7 @@ def init():
         output = evaluate(line_tensor)
         guess, guess_i = categoryFromOutput(output)
         category_i = all_categories.index(category)
+        # 实际语言 对应语言
         confusion[category_i][guess_i] += 1
 
     # Normalize by dividing every row by its sum
@@ -151,7 +180,14 @@ def init():
     predict('Dovesky')
     predict('Jackson')
     predict('Satoshi')
+    predict('Hazaki')
 
-    #https://github.com/spro/practical-pytorch/tree/master/char-rnn-classification
 
-init()
+def init():
+
+    #   runTainfn()
+
+    showReslt()
+
+if __name__ == "__main__":
+    init()

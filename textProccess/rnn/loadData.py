@@ -5,8 +5,6 @@ import os
 
 def findFiles(path): return glob.glob(path)
 
-print(findFiles('data/names/*.txt'))
-
 import unicodedata
 import string
 
@@ -21,7 +19,6 @@ def unicodeToAscii(s):
         and c in all_letters
     )
 
-print(unicodeToAscii('Ślusàrski'))
 
 # Build the category_lines dictionary, a list of names per language
 category_lines = {}
@@ -39,5 +36,3 @@ for filename in findFiles('data/names/*.txt'):
     category_lines[category] = lines
 
 n_categories = len(all_categories)
-
-print(category_lines['Italian'][:5])

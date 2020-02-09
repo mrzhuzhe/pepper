@@ -6,7 +6,7 @@ class RNN(nn.Module):
         super(RNN, self).__init__()
 
         self.hidden_size = hidden_size
-
+        #   这个地方真奇怪 lstm 不像 gru 也不像
         self.i2h = nn.Linear(input_size + hidden_size, hidden_size)
         self.i2o = nn.Linear(input_size + hidden_size, output_size)
         self.softmax = nn.LogSoftmax(dim=1)
