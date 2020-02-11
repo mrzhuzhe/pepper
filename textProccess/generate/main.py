@@ -1,4 +1,19 @@
 # https://pytorch.org/tutorials/intermediate/char_rnn_generation_tutorial.html
+"""
+输入:
+Scottish Murphy #urphy
+Scottish Mckay #ckay
+Greek Pantelas #antelas
+Korean Sook #ook
+Polish Filipowski #ilipowski
+目标： 预测的下一个 和 实际的下一个的差别 尽可能小
+损失：单个词中 估计的下一个字母和 实际下一个字母的差别
+
+问题：
+分类 和 input 和 tensor 为何 可以 concat呢
+门是用可学习矩阵和sigmoid来做的么
+
+"""
 import torch
 from loadData import all_letters, n_letters, category_lines, all_categories, n_categories, unicodeToAscii
 from rnn import RNN
@@ -8,13 +23,9 @@ import matplotlib.pyplot as plt
 import matplotlib.ticker as ticker
 import time
 
-if n_categories == 0:
-    raise RuntimeError('Data not found. Make sure that you downloaded data '
-        'from https://download.pytorch.org/tutorial/data.zip and extract it to '
-        'the current directory.')
 
 #       print('# categories:', n_categories, all_categories)
-#   print(unicodeToAscii("O'Néàl"))
+#       print(unicodeToAscii("O'Néàl"))
 
 learning_rate = 0.0005
 n_iters = 100000
@@ -27,6 +38,7 @@ criterion = nn.NLLLoss()
 rnn = RNN(n_letters, 128, n_letters)
 
 def train(category_tensor, input_line_tensor, target_line_tensor):
+    # torch.unsqueeze(target_line_tensor, -1)
     target_line_tensor.unsqueeze_(-1)
     hidden = rnn.initHidden()
 
@@ -36,6 +48,7 @@ def train(category_tensor, input_line_tensor, target_line_tensor):
 
     for i in range(input_line_tensor.size(0)):
         output, hidden = rnn(category_tensor, input_line_tensor[i], hidden)
+        #   估计的下一个字母和 实际下一个字母的差别
         l = criterion(output, target_line_tensor[i])
         loss += l
 
@@ -54,6 +67,7 @@ def runTrain():
     start = time.time()
 
     for iter in range(1, n_iters + 1):
+        #   print(randomTrainingExample())
         output, loss = train(*randomTrainingExample())
         total_loss += loss
 
@@ -103,12 +117,13 @@ def loadModel():
     rnn.load_state_dict(torch.load(PATH))
 
 def init():
-    #runTrain()
-    loadModel()
+    print("init")
+    runTrain()
+    #loadModel()
     #samples('Russian', 'RUS')
     #samples('German', 'GER')
     #samples('Spanish', 'SPA')
-    samples('Chinese', 'zzzzzz')
+    #samples('Chinese', 'zzzzzz')
 
 if __name__ == "__main__":
     init()

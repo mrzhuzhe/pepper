@@ -1,5 +1,15 @@
 # https://pytorch.org/tutorials/intermediate/char_rnn_classification_tutorial.html
 # https://github.com/spro/practical-pytorch/tree/master/char-rnn-classification
+
+"""
+
+    输入：名字 名字所在的国家
+    目标：名字 和 国家 的 信息量尽可能小
+    损失： 预测的国家和实际国家的差别
+    是 char-level 的吗：是的 不是用的词向量 只有57个字母的 one-hot编码
+    网络架构：hidden 层 在每次 train 时都重置，因为只在char-level时保留隐藏层
+
+"""
 import torch
 import time
 import math
@@ -27,7 +37,6 @@ print(findFiles('data/names/*.txt'))
 print(unicodeToAscii('Ślusàrski'))
 print(category_lines['Italian'][:5])
 """
-
 # 现在rnn就是lstm
 rnn = RNN(n_letters, n_hidden, n_categories)
 
@@ -49,7 +58,7 @@ hidden = torch.zeros(1, n_hidden)
 output, next_hidden = rnn(input[0], hidden)
 print(output)
 
-print(categoryFromOutput(output))
+print(input, categoryFromOutput(output))
 
 for i in range(10):
     category, line, category_tensor, line_tensor = randomTrainingExample()
@@ -68,7 +77,7 @@ def train(category_tensor, line_tensor):
 
     for i in range(line_tensor.size()[0]):
         output, hidden = rnn(line_tensor[i], hidden)
-
+    #   print("output", output, "\ncategory_tensor", category_tensor)
     loss = criterion(output, category_tensor)
     loss.backward()
 
@@ -118,7 +127,7 @@ def runTainfn():
 
     # 训练
     for iter in range(1, n_iters + 1):
-        # minibatch
+        # minibatch 随机梯度下降
         category, line, category_tensor, line_tensor = randomTrainingExample()
         output, loss = train(category_tensor, line_tensor)
         current_loss += loss
@@ -184,10 +193,10 @@ def showReslt():
 
 
 def init():
+    print("init")
+    # runTainfn()
 
-    #   runTainfn()
-
-    showReslt()
+    # showReslt()
 
 if __name__ == "__main__":
     init()

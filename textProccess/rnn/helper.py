@@ -6,6 +6,7 @@ from loadData import all_letters, n_letters, category_lines, all_categories, n_c
 
 def categoryFromOutput(output):
     top_n, top_i = output.topk(1)
+    print(top_n, top_i)
     category_i = top_i[0].item()
     return all_categories[category_i], category_i
 

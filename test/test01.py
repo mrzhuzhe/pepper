@@ -1,4 +1,5 @@
 import numpy as np
+import torch
 randomMatrix = np.random.rand(5,10);
 A = np.array([[1, 2], [3, 4]])
 B = np.array([[5, 6], [7, 8]])
@@ -42,5 +43,12 @@ def num_flat_features(x):
         num_features *= s
     return num_features
 
-print('A dot B' , '\n'
-, num_flat_features(A))
+#print('A dot B' , '\n'
+#, num_flat_features(A))
+
+
+x = torch.tensor([[1, 2, 3, 4],[5,6,7,8]])
+print("unsqueeze1", x.unsqueeze_(-1))
+
+x = torch.tensor([[1, 2, 3, 4],[5,6,7,8]])
+print("unsqueeze1", torch.unsqueeze(x, -1))

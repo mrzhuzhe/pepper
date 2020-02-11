@@ -19,6 +19,7 @@ def categoryTensor(category):
     li = all_categories.index(category)
     tensor = torch.zeros(1, n_categories)
     tensor[0][li] = 1
+    #   print( category + "\n")
     return tensor
 
 # One-hot matrix of first to last letters (not including EOS) for input
@@ -31,6 +32,12 @@ def inputTensor(line):
 
 # LongTensor of second letter to end (EOS) for target
 def targetTensor(line):
+
+    #res="#"
+    #for li in range(1, len(line)):
+    #    res+=line[li]
+    #print( line +" " + res + "\n")
+
     letter_indexes = [all_letters.find(line[li]) for li in range(1, len(line))]
     letter_indexes.append(n_letters - 1) # EOS
     return torch.LongTensor(letter_indexes)
