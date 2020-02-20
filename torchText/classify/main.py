@@ -1,4 +1,12 @@
 """
+ https://pytorch.org/tutorials/beginner/text_sentiment_ngrams_tutorial.html
+ data loader 改造参考： https://pytorch.org/text/_modules/torchtext/datasets/text_classification.html
+ 代码结构待拆分
+
+
+"""
+
+"""
 Text Classification with TorchText
 ==================================
 This tutorial shows how to use the text classification datasets
@@ -33,140 +41,15 @@ words plus bi-grams string.
 import torch
 import torchtext
 #from torchtext.datasets import text_classification
-import io
-import logging
-
-from torchtext.utils import unicode_csv_reader
-from torchtext.data.utils import ngrams_iterator
-from torchtext.data.utils import get_tokenizer
-from torchtext.vocab import build_vocab_from_iterator
-from torchtext.vocab import Vocab
-from tqdm import tqdm
+from dataloader import _setup_datasets
+from model import TextSentiment
+savePATH = './model/torchText/simpleModel.pth'
 
 NGRAMS = 2
-import os
+#import os
+
 #if not os.path.isdir('./data/AG/ag_news_csv'):
 #	os.mkdir('./data/AG/ag_news_csv')
-
-
-
-##
-def _csv_iterator(data_path, ngrams, yield_cls=False):
-    tokenizer = get_tokenizer("basic_english")
-    with io.open(data_path, encoding="utf8") as f:
-        reader = unicode_csv_reader(f)
-        for row in reader:
-            tokens = ' '.join(row[1:])
-            tokens = tokenizer(tokens)
-            if yield_cls:
-                yield int(row[0]) - 1, ngrams_iterator(tokens, ngrams)
-            else:
-                yield ngrams_iterator(tokens, ngrams)
-
-def _create_data_from_iterator(vocab, iterator, include_unk):
-    data = []
-    labels = []
-    with tqdm(unit_scale=0, unit='lines') as t:
-        for cls, tokens in iterator:
-            if include_unk:
-                tokens = torch.tensor([vocab[token] for token in tokens])
-            else:
-                token_ids = list(filter(lambda x: x is not Vocab.UNK, [vocab[token]
-                                        for token in tokens]))
-                tokens = torch.tensor(token_ids)
-            if len(tokens) == 0:
-                logging.info('Row contains no tokens.')
-            data.append((cls, tokens))
-            labels.append(cls)
-            t.update(1)
-    return data, set(labels)
-
-class TextClassificationDataset(torch.utils.data.Dataset):
-    """Defines an abstract text classification datasets.
-       Currently, we only support the following datasets:
-
-             - AG_NEWS
-             - SogouNews
-             - DBpedia
-             - YelpReviewPolarity
-             - YelpReviewFull
-             - YahooAnswers
-             - AmazonReviewPolarity
-             - AmazonReviewFull
-
-    """
-
-    def __init__(self, vocab, data, labels):
-        """Initiate text-classification dataset.
-
-        Arguments:
-            vocab: Vocabulary object used for dataset.
-            data: a list of label/tokens tuple. tokens are a tensor after
-                numericalizing the string tokens. label is an integer.
-                [(label1, tokens1), (label2, tokens2), (label2, tokens3)]
-            label: a set of the labels.
-                {label1, label2}
-
-        Examples:
-            See the examples in examples/text_classification/
-
-        """
-
-        super(TextClassificationDataset, self).__init__()
-        self._data = data
-        self._labels = labels
-        self._vocab = vocab
-
-
-    def __getitem__(self, i):
-        return self._data[i]
-
-    def __len__(self):
-        return len(self._data)
-
-    def __iter__(self):
-        for x in self._data:
-            yield x
-
-    def get_labels(self):
-        return self._labels
-
-    def get_vocab(self):
-        return self._vocab
-
-def _setup_datasets(dataset_name, root='.data', ngrams=1, vocab=None, include_unk=False):
-    """
-    dataset_tar = download_from_url(URLS[dataset_name], root=root)
-    extracted_files = extract_archive(dataset_tar)
-    """
-
-    extracted_files = os.listdir(root)
-    #  此处路径需要补全
-    for fname in extracted_files:
-        if fname.endswith('train.csv'):
-            train_csv_path = root + "/" + fname
-        if fname.endswith('test.csv'):
-            test_csv_path = root + "/" + fname
-
-    if vocab is None:
-        logging.info('Building Vocab based on {}'.format(train_csv_path))
-        vocab = build_vocab_from_iterator(_csv_iterator(train_csv_path, ngrams))
-    else:
-        if not isinstance(vocab, Vocab):
-            raise TypeError("Passed vocabulary is not of type Vocab")
-    logging.info('Vocab has {} entries'.format(len(vocab)))
-    logging.info('Creating training data')
-    train_data, train_labels = _create_data_from_iterator(
-        vocab, _csv_iterator(train_csv_path, ngrams, yield_cls=True), include_unk)
-    logging.info('Creating testing data')
-    test_data, test_labels = _create_data_from_iterator(
-        vocab, _csv_iterator(test_csv_path, ngrams, yield_cls=True), include_unk)
-    if len(train_labels ^ test_labels) > 0:
-        raise ValueError("Training and test labels don't match")
-    return (TextClassificationDataset(vocab, train_data, train_labels),
-            TextClassificationDataset(vocab, test_data, test_labels))
-
-##
 
 # train_dataset, test_dataset = text_classification.DATASETS['AG_NEWS'](
 #     root='./data/AG/', ngrams=NGRAMS, vocab=None, download=False)
@@ -176,42 +59,7 @@ BATCH_SIZE = 16
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 
 
-######################################################################
-# Define the model
-# ----------------
-#
-# The model is composed of the
-# `EmbeddingBag <https://pytorch.org/docs/stable/nn.html?highlight=embeddingbag#torch.nn.EmbeddingBag>`__
-# layer and the linear layer (see the figure below). ``nn.EmbeddingBag``
-# computes the mean value of a “bag” of embeddings. The text entries here
-# have different lengths. ``nn.EmbeddingBag`` requires no padding here
-# since the text lengths are saved in offsets.
-#
-# Additionally, since ``nn.EmbeddingBag`` accumulates the average across
-# the embeddings on the fly, ``nn.EmbeddingBag`` can enhance the
-# performance and memory efficiency to process a sequence of tensors.
-#
-# .. image:: ../_static/img/text_sentiment_ngrams_model.png
-#
 
-import torch.nn as nn
-import torch.nn.functional as F
-class TextSentiment(nn.Module):
-    def __init__(self, vocab_size, embed_dim, num_class):
-        super().__init__()
-        self.embedding = nn.EmbeddingBag(vocab_size, embed_dim, sparse=True)
-        self.fc = nn.Linear(embed_dim, num_class)
-        self.init_weights()
-
-    def init_weights(self):
-        initrange = 0.5
-        self.embedding.weight.data.uniform_(-initrange, initrange)
-        self.fc.weight.data.uniform_(-initrange, initrange)
-        self.fc.bias.data.zero_()
-
-    def forward(self, text, offsets):
-        embedded = self.embedding(text, offsets)
-        return self.fc(embedded)
 
 
 ######################################################################
@@ -376,6 +224,7 @@ for epoch in range(N_EPOCHS):
     print(f'\tLoss: {train_loss:.4f}(train)\t|\tAcc: {train_acc * 100:.1f}%(train)')
     print(f'\tLoss: {valid_loss:.4f}(valid)\t|\tAcc: {valid_acc * 100:.1f}%(valid)')
 
+torch.save(model.state_dict(), savePATH)
 
 ######################################################################
 # Running the model on GPU with the following information:
