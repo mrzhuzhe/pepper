@@ -28,6 +28,8 @@ python textProccess/rnn/main.py
 # char-generate 的 rnn 用了 i2o i2h 020  隐藏层 2 隐藏层  output 2 隐藏层  2 input
 python textProccess/generate/main.py
 
+# 测试
+
 ```
 
 
