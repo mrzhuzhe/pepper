@@ -127,5 +127,6 @@ dmypy.json
 assign02/utils/datasets
 
 data
+.data
 model
 output

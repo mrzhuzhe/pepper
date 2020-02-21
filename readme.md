@@ -28,6 +28,12 @@ python textProccess/rnn/main.py
 # char-generate 的 rnn 用了 i2o i2h 020  隐藏层 2 隐藏层  output 2 隐藏层  2 input
 python textProccess/generate/main.py
 
+# torchtext 判别器， 查看并更改了源码解决了torchtext 每次都要下载数据的问题
+python torchText/classify/main.py
+
+# TODO 完全用来学习的transformer
+python torchText/transformer/main.py
+
 ```
 
 
