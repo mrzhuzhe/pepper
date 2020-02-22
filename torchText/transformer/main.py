@@ -147,8 +147,9 @@ def runTrain():
 
         scheduler.step()
     torch.save(best_model.state_dict(), savePATH)
+    return best_model
 
-def runTest():
+def runTest(best_model):
     test_loss = evaluate(best_model, test_data)
     print('=' * 89)
     print('| End of training | test loss {:5.2f} | test ppl {:8.2f}'.format(
@@ -157,8 +158,8 @@ def runTest():
 
 def init():
     print("init")
-    runTrain()
-    runTest()
+    best_model = runTrain()
+    runTest(best_model)
 
 
 
