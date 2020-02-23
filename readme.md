@@ -37,9 +37,16 @@ python torchText/transformer/main.py
 
 ```
 
-## bert 中的
-tersorflow 1.11 py3.6
+## bert 中的一些经验记录
 
+```
+# colab 中bert fine-turn 简单demo 数据只有500调
+/bertnore/demo-chinese-text-binary-classification-with-bert.ipynb
+
+```
+
+1. 本地安装需要 tersorflow 1.11 py3.6
+2. 为了测试方便，改为colab notebook 见 /bertnore 目录
 
 ## resouce & meterial refference
  - some solutions https://github.com/ZacBi/CS224n-2019-solutions
