@@ -39,12 +39,10 @@ python torchText/transformer/main.py
 
 ## bert 中的一些经验记录
 
-```
-# colab 中bert fine-turn 简单demo 数据只有500调
-/bertnore/demo-chinese-text-binary-classification-with-bert.ipynb
+### 例子
+1. colab 中bert fine-turn 简单demo 数据只有500条   [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/drive/1pP83paixvnu8fm8Xv69RwD831pBOZnPg)
 
-```
-
+### 笔记
 1. 本地安装需要 tersorflow 1.11 py3.6
 2. 为了测试方便，改为colab notebook 见 /bertnore 目录
 
