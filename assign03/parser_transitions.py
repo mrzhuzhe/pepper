@@ -30,9 +30,10 @@ class PartialParse(object):
         ###
         ### Note: The root token should be represented with the string "ROOT"
         ###
-
+        #   栈里初始化就是一个 root
         self.stack = ["ROOT"]
         # if use self.buffer = self.sentence, for memory reason, sentence will be modified
+        #   当前句子拷贝到 buffer 里来
         self.buffer = self.sentence.copy()
         self.dependencies = []
 
@@ -117,14 +118,18 @@ def minibatch_parse(sentences, model, batch_size):
     ###             to remove objects from the `unfinished_parses` list. This will free the underlying memory that
     ###             is being accessed by `partial_parses` and may cause your code to crash.
 
+    # 单个句子转换成 需要的对象
     partial_parses = [PartialParse(sentence) for sentence in sentences]
     unfinished_parses = partial_parses[:]
+
     while len(unfinished_parses):
         pred_trans = model.predict(unfinished_parses[:batch_size])
         for pred_tran, parse in zip(pred_trans, unfinished_parses[:batch_size]):
+            #  先批量 predict
+            #   print("parse", "pred_tran",  parse.buffer, pred_tran)
             parse.parse_step(pred_tran)
             if not parse.buffer and len(parse.stack) == 1:
-                unfinished_parses.remove(parse)   # maybe wrong 
+                unfinished_parses.remove(parse)   # maybe wrong
 
     dependencies = [partial_parse.dependencies for partial_parse in partial_parses]
 
@@ -133,7 +138,7 @@ def minibatch_parse(sentences, model, batch_size):
 
     return dependencies
 
-
+# 只测试 parse_step
 def test_step(name, transition, stack, buf, deps,
               ex_stack, ex_buf, ex_deps):
     """Tests that a single parse step returns the expected output"""
