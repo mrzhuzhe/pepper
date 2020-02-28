@@ -76,17 +76,19 @@ python assign03/run.py
 ```
 
 
-## bert 中的一些经验记录
+## 中文 nlp 实练
 
-### 例子
+### colab 训练
 1. colab 中bert fine-turn 简单demo 数据只有500条   [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/drive/1pP83paixvnu8fm8Xv69RwD831pBOZnPg)
 2. bert最简单的文章相关性判定 [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/drive/1VDCsK0M-eUjWKb_cz5rojw3FnjcNJvsp#scrollTo=n9AT5FTTyIep)
+3. mnt transformer 英翻中 [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/drive/1FJ1XQ18PTsu2jGV282mCbPKXKvroemYL)
 
 ### 笔记
 1. 本地安装需要 tersorflow 1.11 py3.6
-2. 为了测试方便，改为colab notebook 见 /bertnore 目录
+2. 为了训练方便，改为colab notebook
 
 ## resouce & meterial refference
  - some solutions https://github.com/ZacBi/CS224n-2019-solutions
  - cource materials https://github.com/zhanlaoban/CS224N-Stanford-Winter-2019
  - some notes & solutions https://blog.csdn.net/cindy_1102/article/category/8804737
+ - amazing blog form Mr Lee Meng https://leemeng.tw/neural-machine-translation-with-transformer-and-tensorflow2.html
