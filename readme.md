@@ -81,7 +81,7 @@ python assign03/run.py
 ### colab 训练
 1. colab 中bert fine-turn 简单demo 数据只有500条   [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/drive/1pP83paixvnu8fm8Xv69RwD831pBOZnPg)
 2. bert最简单的文章相关性判定 [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/drive/1VDCsK0M-eUjWKb_cz5rojw3FnjcNJvsp)
-3. mnt transformer 英翻中 [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/drive/1FJ1XQ18PTsu2jGV282mCbPKXKvroemYL)
+3. mnt transformer 英翻中 [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/drive/1FJ1XQ18PTsu2jGV282mCbPKXKvroemYL) 注意力机制
 
 ### 笔记
 1. 本地安装需要 tersorflow 1.11 py3.6
