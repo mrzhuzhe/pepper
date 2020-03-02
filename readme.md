@@ -79,9 +79,21 @@ python assign03/run.py
 ## 中文 nlp 实练
 
 ### colab 训练
-1. colab 中bert fine-turn 简单demo 数据只有500条   [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/drive/1pP83paixvnu8fm8Xv69RwD831pBOZnPg)
-2. bert最简单的文章相关性判定 [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/drive/1VDCsK0M-eUjWKb_cz5rojw3FnjcNJvsp)
-3. mnt transformer 英翻中 [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/drive/1FJ1XQ18PTsu2jGV282mCbPKXKvroemYL) 注意力机制
+1. colab 中bert fine-turn 的 classifier  
+
+[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/drive/1pP83paixvnu8fm8Xv69RwD831pBOZnPg)
+
+2. bert s2s classifier 文章相关性判定
+
+[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/drive/1VDCsK0M-eUjWKb_cz5rojw3FnjcNJvsp)
+
+3. mnt transformer 英翻中
+
+[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/drive/1FJ1XQ18PTsu2jGV282mCbPKXKvroemYL)
+- 注意力机制
+- encoder decoder layer
+- mask 机制的实现
+- 位置编码
 
 ### 笔记
 1. 本地安装需要 tersorflow 1.11 py3.6
@@ -92,3 +104,6 @@ python assign03/run.py
  - cource materials https://github.com/zhanlaoban/CS224N-Stanford-Winter-2019
  - some notes & solutions https://blog.csdn.net/cindy_1102/article/category/8804737
  - amazing blog form Mr Lee Meng https://leemeng.tw/neural-machine-translation-with-transformer-and-tensorflow2.html
+
+ ## others
+ 1. 汉明码的健壮性，性能度量
