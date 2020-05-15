@@ -20,7 +20,7 @@
 
 ## Script
 
-### pytorch 入门
+### 1. pytorch 入门
 
 ``` python
 
@@ -41,7 +41,15 @@ python torchText/transformer/main.py
 
 ```
 
-### assign
+### 2. 统计学习方法
+``` python
+# EM算法
+/statistical-learning/em.py
+
+```
+
+
+### 3. cs224n assign
 
 ``` python
 
@@ -104,6 +112,3 @@ python assign03/run.py
  - cource materials https://github.com/zhanlaoban/CS224N-Stanford-Winter-2019
  - some notes & solutions https://blog.csdn.net/cindy_1102/article/category/8804737
  - amazing blog form Mr Lee Meng https://leemeng.tw/neural-machine-translation-with-transformer-and-tensorflow2.html
-
- ## others
- 1. 汉明码的健壮性，性能度量
