@@ -21,11 +21,12 @@ import numpy as np
 class HiddenMarkov:
     '''
     pi 初始概率向量
-    A 概率换一矩阵
+    A 概率转移矩阵
     B 观测概率矩阵
     Q 队列
     V 红 白
     O 观测序列
+    楼下的 [sigma a b 代表矩阵相乘（还是部分合？）]
     '''
     def forward(self, Q, V, A, B, O, PI):  # 使用前向算法
         N = len(Q)  #可能存在的状态数量
@@ -40,13 +41,18 @@ class HiddenMarkov:
                     print(
                         'alpha1(%d)=p%db%db(o1)=%f' % (i, i, i, alphas[i][t]))
                 else:
+                    #  这部分的循环相当于 alpha' 矩阵乘 A 再点乘 B
                     alphas[i][t] = np.dot(
                         [alpha[t - 1] for alpha in alphas],
                         [a[i] for a in A]) * B[i][indexOfO]  # 对应P176（10.16）
+                    #   print([alpha[t - 1] for alpha in alphas])
+                    #   print([a[i] for a in A])
+                    #   print('B[%d, %d]=%f' % (i, indexOfO, B[i][indexOfO]))
                     print('alpha%d(%d)=[sigma alpha%d(i)ai%d]b%d(o%d)=%f' %
                           (t, i, t - 1, i, i, t, alphas[i][t]))
                     # print(alphas)
         P = np.sum([alpha[M - 1] for alpha in alphas])  # P176(10.17)
+        #   print(P)
         # alpha11 = pi[0][0] * B[0][0]    #代表a1(1)
         # alpha12 = pi[0][1] * B[1][0]    #代表a1(2)
         # alpha13 = pi[0][2] * B[2][0]    #代表a1(3)
@@ -143,8 +149,8 @@ O = ['红', '白', '红', '白']    #习题10.1的例子
 PI = [[0.2, 0.4, 0.4]]
 
 HMM = HiddenMarkov()
-#HMM.forward(Q, V, A, B, O, PI)
-HMM.backward(Q, V, A, B, O, PI)
+HMM.forward(Q, V, A, B, O, PI)
+#HMM.backward(Q, V, A, B, O, PI)
 # HMM.viterbi(Q, V, A, B, O, PI)
 
 # 习题 10.2

@@ -46,6 +46,11 @@ python torchText/transformer/main.py
 # EM算法
 /statistical-learning/em.py
 
+# 隐马模型的前向 后向 维特比
+/statistical-learning/hmm.py
+
+# crf 没怎么理解后续看懂了再放出来
+
 ```
 
 
