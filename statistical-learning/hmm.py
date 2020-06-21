@@ -149,9 +149,9 @@ O = ['红', '白', '红', '白']    #习题10.1的例子
 PI = [[0.2, 0.4, 0.4]]
 
 HMM = HiddenMarkov()
-HMM.forward(Q, V, A, B, O, PI)
+#HMM.forward(Q, V, A, B, O, PI)
 #HMM.backward(Q, V, A, B, O, PI)
-# HMM.viterbi(Q, V, A, B, O, PI)
+HMM.viterbi(Q, V, A, B, O, PI)
 
 # 习题 10.2
 '''
@@ -168,6 +168,7 @@ HMM.forward(Q, V, A, B, O, PI)
 
 
 '''
+# 这是在干什么
 from collections import Counter
 li = [1,2,3,1,1,2,1]
 c = Counter(li)

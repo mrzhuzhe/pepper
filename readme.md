@@ -1,6 +1,7 @@
 # pepper
  a collection of implements for cs224n 2019 homework
- a collection of pytorch tutorial
+ statistical-learning
+ pytorch tutorial
  and bert demo
 
 > 用来存放 CS224n 2019 的作业 & pytorch 入门教程
