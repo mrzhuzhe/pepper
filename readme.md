@@ -118,3 +118,4 @@ python assign03/run.py
  - cource materials https://github.com/zhanlaoban/CS224N-Stanford-Winter-2019
  - some notes & solutions https://blog.csdn.net/cindy_1102/article/category/8804737
  - amazing blog form Mr Lee Meng https://leemeng.tw/neural-machine-translation-with-transformer-and-tensorflow2.html
+ - lihang statstic-learning 2019 
