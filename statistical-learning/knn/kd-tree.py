@@ -38,6 +38,8 @@ def find_nearest(tree, point):
             further_node = kd_node.left
 
         temp1 = travel(nearer_node, target, max_dist)  # 进行遍历找到包含目标点的区域
+        #   先输出一下目标点位置试试
+        print("temp1", s, kd_node.dom_elt , temp1)
 
         nearest = temp1.nearest_point  # 以此叶结点作为“当前最近点”
         dist = temp1.nearest_dist  # 更新最近距离
@@ -107,21 +109,21 @@ class KdTree(object):
 
 # KDTree的前序遍历
 def preorder(root):
-    print(root.dom_elt)
+    print(root.dom_elt, root.split)
     if root.left:  # 节点不为空
         preorder(root.left)
     if root.right:
         preorder(root.right)
 
-"""
+#"""
 data = [[2,3],[5,4],[9,6],[4,7],[8,1],[7,2]]
 kd = KdTree(data)
 preorder(kd.root)
 ret = find_nearest(kd, [3,4.5])
 print (ret)
-"""
-
 #"""
+
+"""
 N = 400000
 t0 = clock()
 kd2 = KdTree(random_points(3, N))            # 构建包含四十万个3维空间样本点的kd树
@@ -129,4 +131,4 @@ ret2 = find_nearest(kd2, [0.1,0.5,0.8])      # 四十万个样本点中寻找离
 t1 = clock()
 print ("time: ",t1-t0, "s")
 print (ret2)
-#"""
+"""
