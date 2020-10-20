@@ -1,6 +1,10 @@
 """
 这里的例子有很严重的问题，需要查一下sklern官网
 https://scikit-learn.org/stable/modules/tree.html
+
+1. 需要在分类后drop掉当前特征，不然当前特征会被反复使用
+
+
 """
 from sklearn.datasets import load_iris
 from sklearn.model_selection import train_test_split

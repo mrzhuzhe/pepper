@@ -1,5 +1,7 @@
 """
     结果抖动非常非常严重
+    是不是smo kkt条件的原因？
+    需要看看skl的实现 和skl参数的导出
 """
 import numpy as np
 import pandas as pd
@@ -47,7 +49,7 @@ class SVM:
         self.alpha = np.ones(self.m)
         self.E = [self._E(i) for i in range(self.m)]
         # 松弛变量
-        self.C = 1.0
+        self.C = 1
 
     def _KKT(self, i):
         y_g = self._g(i) * self.Y[i]
