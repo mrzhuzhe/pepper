@@ -109,6 +109,12 @@ python assign03/run.py
 - mask 机制的实现
 - 位置编码
 
+## gym 练习
+1. gym 环境测试:  /gym/test01.py 
+  注意 这里 zsh pip homebrew 都改了源和代理指向国内源 和网络连接走代理 
+  需要安装 ffmpeg
+  其他问题可见troubelShooting
+
 ### 笔记
 1. 本地安装需要 tersorflow 1.11 py3.6
 2. 为了训练方便，改为colab notebook
