@@ -22,6 +22,7 @@
 |  鸭子蛇  | 强化学习 | https://www.kaggle.com/c/hungry-geese/discussion/218190  |
 |  时序特征  | ----  | 
 https://www.kaggle.com/jagangupta/time-series-basics-exploring-traditional-ts |
+|  dice系数  | ----  | https://www.aiuai.cn/aifarm1159.html |
 
 ## Roadmap
 
@@ -33,6 +34,7 @@ https://www.kaggle.com/jagangupta/time-series-basics-exploring-traditional-ts |
 | slidelive.com  | 顶会演讲录像 |
 | 查一下py lambda函数 |  |
 | 时序问题 | https://otexts.com/fpp2/ |
+| 图像分割 | https://www.kaggle.com/c/hubmap-kidney-segmentation/discussion/200955 |
 
 
 ## Preproccess Checklist
