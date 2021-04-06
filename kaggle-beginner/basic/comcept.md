@@ -12,7 +12,7 @@
 
 ## Basic Concept
 
-|  竞赛名   | 说明  | 链接 |
+|  名称   | 说明  | 链接 |
 |  ----  | ----  | ----  |
 | 俄罗斯销售预测  | 一个非常详细的eda，特征提取等，还根据一些人工提取方式做了优化 | https://github.com/KubaMichalczyk/kaggle-predict-future-sales/blob/master/notebooks/eda.ipynb |
 | 俄罗斯销售预测 | 这里面对延时特征做了详细的说明 | https://www.kaggle.com/szhou42/predict-future-sales-top-11-solution |
@@ -23,6 +23,11 @@
 |  时序特征  | ----  | 
 https://www.kaggle.com/jagangupta/time-series-basics-exploring-traditional-ts |
 |  dice系数  | ----  | https://www.aiuai.cn/aifarm1159.html |
+|  如何使用tpu  | 目前tpu的配置有点问题  | https://www.kaggle.com/joshi98kishan/foldtraining-pytorch-tpu-8-cores?scriptVersionId=49786435  |
+|  其实如果是“连续特征”  | ？使用条件存疑，可以整体用降噪自编码器dae来做特征工程，无缺失值，无分类，数量够  | 详情可见kaggle每月tablur模拟赛  |
+
+
+
 
 ## Roadmap
 
@@ -35,6 +40,8 @@ https://www.kaggle.com/jagangupta/time-series-basics-exploring-traditional-ts |
 | 查一下py lambda函数 |  |
 | 时序问题 | https://otexts.com/fpp2/ |
 | 图像分割 | https://www.kaggle.com/c/hubmap-kidney-segmentation/discussion/200955 |
+| efficientnet的不同 | https://ai.googleblog.com/2019/05/efficientnet-improving-accuracy-and.html/ |
+| persudo label | https://www.kaggle.com/cdeotte/pseudo-labeling-qda-0-969 / qda: https://www.kaggle.com/c/instant-gratification/discussion/93843|
 
 
 ## Preproccess Checklist
@@ -51,4 +58,3 @@ https://www.kaggle.com/jagangupta/time-series-basics-exploring-traditional-ts |
 |  groupby  | 获取群的 max min agg | ---- |
 
 
-其实如果是“连续特征”（？使用条件存疑），可以整体用降噪自编码器dae来做特征工程，无缺失值，无分类，数量够
