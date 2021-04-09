@@ -1,8 +1,13 @@
-#   数据分析，销售额预测
+# 路线和总结
 
 > 最开始还是要定位问题的类型
 
-## Eda and Preproccess
+1. tf 有 流 和 seq 的概念 用于 tpu 加速 
+2. 计算过程中有 session 的概念， 
+3. 计算过程中tensor 必须维度对齐
+4. tpu 有可怕的 numpy_function bug ， 要查一下怎么看 tpu 性能瓶颈
+
+## 数据分析，销售额预测， 时序的 Eda and Preproccess
 
 1. 剔除重复
 2. 有些非常相似的增加字段
@@ -25,9 +30,9 @@ https://www.kaggle.com/jagangupta/time-series-basics-exploring-traditional-ts |
 |  dice系数  | ----  | https://www.aiuai.cn/aifarm1159.html |
 |  如何使用tpu  | 目前tpu的配置有点问题  | https://www.kaggle.com/joshi98kishan/foldtraining-pytorch-tpu-8-cores?scriptVersionId=49786435  |
 |  其实如果是“连续特征”  | ？使用条件存疑，可以整体用降噪自编码器dae来做特征工程，无缺失值，无分类，数量够  | 详情可见kaggle每月tablur模拟赛  |
-
-
-
+|  测试数据自增  | ----  | https://www.kaggle.com/andrewkh/test-time-augmentation-tta-worth-it  |
+|  k折到底取哪个  | ----  | https://stats.stackexchange.com/questions/2306/feature-selection-for-final-model-when-performing-cross-validation-in-machine?rq=1 |
+|  shift  | ----  | https://www.kaggle.com/c/severstal-steel-defect-detection/discussion/114321  |
 
 ## Roadmap
 
@@ -56,5 +61,4 @@ https://www.kaggle.com/jagangupta/time-series-basics-exploring-traditional-ts |
 |  重复值  | 重复值竟然有误标注的 | 这个似乎可以理解 |
 |  无效特征和离群点  | ---- | ---- |
 |  groupby  | 获取群的 max min agg | ---- |
-
 
