@@ -2,7 +2,7 @@
 
 ## 为什么
 
-1. 外什么大tiff图片要切片才能训练？ To make such large images to be suitable for training of a neural network, they must be cut into tiles.
+1. 为什么什么大tiff图片要切片才能训练？ To make such large images to be suitable for training of a neural network, they must be cut into tiles.
 
 2. 为什么efficientnet 要选择 b0 - b7 有什么区别？
 
@@ -14,6 +14,34 @@
 
 6. 为什么要读论文？
 
-7. 如何做 本次cv 验证？ fold是用来做本地cv验证的吗？
+7. 如何做 本地cv 验证？ fold是用来做本地cv验证的吗？
 
 8. 是不是多边形标注的方式上也可以优化
+
+## 实验记录
+
+|  版本号   | 变量  | 分数 | 效果 | 类型 | 目的 | 结论 |
+|  ---- | ---- | ---- | ----- | ---- | ----- | ---- |
+|  1  | efficientnet4  | 时间13ks  | 自己验证平均分9.17 提交分 9.07 | unet | 初始化 | 初始化 |
+|  2  | batchsize 16 加倍 | 时间15ks  | 自己验证平均分9.22 提交分 9.07 | unet | batch size 加倍 | 时间还变长了 |
+|  3  | linknet batch 16 bce_jaccard_loss efficientnet0 | 时间8ks  | 自己验证平均分9.17 提交分 9.15 | link | 换其他模型| 换loss 减小effnet|
+|  4  | 换回 unet bce_jaccard_loss efficientnet0 | 时间8ks  | 自己验证平均分9.17 提交分 9.15 | unet | 减少efficeintnet | 没影响 提交时threahold的影响 |
+|  5  | 增加了随机颜色 噪声等自增 | 时间11ks  | 自己验证平均分9.07 提交分 8.8 | unet | 数据自增 | 增加噪声会大幅增加时间 |
+|  6  | 图片换为256 | 时间3ks  | 自己验证平均分9.04 未提交 | unet | 增加数据 | 图像减小大幅提升速度 |
+|  7  | 去掉噪声自增 | 时间3ks  | 自己验证平均分9.09 未提交 | unet | 减少影响精度的噪声 | 似乎图像自增会影响精度 |
+|  8  | 修改左右反转的概率 | 时间3ks  | 自己验证平均分9.12 未提交 | unet | 似乎存在+-.03的波动 | |
+|  9  | batch增大四倍 epoch加倍 | 时间2.5ks  | 自己验证平均分9.31 提交9.18 | unet | 增加噪声后似乎没收敛？ | batch 是否有影响？ |
+|  10  | 直接转为linknet | 时间2.2ks  | 自己验证平均分9.0 未提交 这个版本偏差极大 有一个.81的极低分 | link | batch加大似乎引起了高方差 |  |
+|  11  | linknet 学习率加大 增加lookahead | 时间3.5ks  | 自己验证平均分9.2 未提交 有一个.86的极低分  | link | 不清楚是lookahead还是学习率的影响 |  |
+|  12  | 修复seed的bug | 时间3.5ks  | 自己验证平均分9.19 未提交 有一个.88的极低分  | link | 没有每次改变数据顺序 | 似乎shuff没影响？ |
+|  13  | batch 和学习率还原 删除精确度的metrics |   |   | link | 还原参照物，现在只需要看lookahead和其他项目的影响了 |  |
+
+|  因素   | 变量  | 影响 | 现象 | 结论 |
+|  ---- | ---- | ---- | ----- | ---- |
+|  多折验证 | ---- | ---- | ----- | ---- |
+|  数据自增 | ---- | ---- | ----- | ---- |
+|  batch大小 | ---- | ---- | ----- | ---- |
+|  学习率 | ---- | ---- | ----- | ---- |
+|  数据打乱顺序 | ---- | ---- | ----- | ---- |
+|  文件大小 | ---- | ---- | ----- | ---- |
+|  容量 | ---- | ---- | ----- | ---- |
