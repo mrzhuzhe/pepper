@@ -1,5 +1,7 @@
 import numpy as np
-import torch
+#import torch
+
+"""
 randomMatrix = np.random.rand(5,10);
 A = np.array([[1, 2], [3, 4]])
 B = np.array([[5, 6], [7, 8]])
@@ -52,3 +54,14 @@ print("unsqueeze1", x.unsqueeze_(-1))
 
 x = torch.tensor([[1, 2, 3, 4],[5,6,7,8]])
 print("unsqueeze1", torch.unsqueeze(x, -1))
+"""
+
+a = 1e-4
+
+b = a / 1e2
+
+c = 1e-5
+
+print(a)
+print(b)
+print(c)
