@@ -46,28 +46,28 @@
 
 ## 实验记录
 
-|  版本号   | 变量  | 分数 | 效果 | 类型 | 目的 | 结论 |
-|  ---- | ---- | ---- | ----- | ---- | ----- | ---- |
-|  1  | efficientnet4  | 时间13ks  | 自己验证平均分9.17 提交分 9.07 | unet | 初始化 | 初始化 |
-|  2  | batchsize 16 加倍 | 时间15ks  | 自己验证平均分9.22 提交分 9.07 | unet | batch size 加倍 | 时间还变长了 |
-|  3  | linknet batch 16 bce_jaccard_loss efficientnet0 | 时间8ks  | 自己验证平均分9.17 提交分 9.15 | link | 换其他模型| 换loss 减小effnet|
-|  4  | 换回 unet bce_jaccard_loss efficientnet0 | 时间8ks  | 自己验证平均分9.17 提交分 9.15 | unet | 减少efficeintnet | 没影响 提交时threahold的影响 |
-|  5  | 增加了随机颜色 噪声等自增 | 时间11ks  | 自己验证平均分9.07 提交分 8.8 | unet | 数据自增 | 增加噪声会大幅增加时间 |
-|  6  | 图片换为256 | 时间3ks  | 自己验证平均分9.04 未提交 | unet | 增加数据 | 图像减小大幅提升速度 |
-|  7  | 去掉噪声自增 | 时间3ks  | 自己验证平均分9.09 未提交 | unet | 减少影响精度的噪声 | 似乎图像自增会影响精度 |
-|  8  | 修改左右反转的概率 | 时间3ks  | 自己验证平均分9.12 未提交 | unet | 似乎存在+-.03的波动 | |
+|  序号   | 变量  | 时间 | 效果 | 类型 | 目的 | 结论 | 版本 |
+|  ---- | ---- | ---- | ----- | ---- | ----- | ---- | ---- |
+|  1  | efficientnet4  | 时间13ks  | 自己验证平均分9.17 提交分 9.07 | unet | 初始化 | 初始化 |  |
+|  2  | batchsize 16 加倍 | 时间15ks  | 自己验证平均分9.22 提交分 9.07 | unet | batch size 加倍 | 时间还变长了 | |
+|  3  | linknet batch 16 bce_jaccard_loss efficientnet0 | 时间8ks  | 自己验证平均分9.17 提交分 9.15 | link | 换其他模型| 换loss 减小effnet| |
+|  4  | 换回 unet bce_jaccard_loss efficientnet0 | 时间8ks  | 自己验证平均分9.17 提交分 9.15 | unet | 减少efficeintnet | 没影响 提交时threahold的影响 | |
+|  5  | 增加了随机颜色 噪声等自增 | 时间11ks  | 自己验证平均分9.07 提交分 8.8 | unet | 数据自增 | 增加噪声会大幅增加时间 | |
+|  6  | 图片换为256 | 时间3ks  | 自己验证平均分9.04 未提交 | unet | 增加数据 | 图像减小大幅提升速度 | |
+|  7  | 去掉噪声自增 | 时间3ks  | 自己验证平均分9.09 未提交 | unet | 减少影响精度的噪声 | 似乎图像自增会影响精度 | |
+|  8  | 修改左右反转的概率 | 时间3ks  | 自己验证平均分9.12 未提交 | unet | 似乎存在+-.03的波动 | | |
 |  9  | batch增大四倍 epoch加倍 | 时间2.5ks  | 自己验证平均分9.31 提交9.18 | unet | 增加噪声后似乎没收敛？ | batch 是否有影响？ |
-|  10  | 直接转为linknet | 时间2.2ks  | 自己验证平均分9.0 未提交 这个版本偏差极大 有一个.81的极低分 | link | batch加大似乎引起了高方差 |  |
-|  11  | linknet 学习率加大 增加lookahead | 时间3.5ks  | 自己验证平均分9.2 未提交 有一个.86的极低分  | link | 不清楚是lookahead还是学习率的影响 |  |
-|  12  | 修复seed的bug | 时间3.5ks  | 自己验证平均分9.19 未提交 有一个.88的极低分  | link | 没有每次改变数据顺序 | 似乎shuff没影响？ |
-|  13  | batch 和学习率还原 删除精确度的metrics |   |   | link | 还原参照物，现在只需要看lookahead和其他项目的影响了 | 这个版本cv只有9.11 但是提交上去却有9.17 |
-|  14  | 还原为unet，去掉lookahead |  时间3ks |   | unet | 反复调整参数寻找最优学习率 | 目前最优学习率是1e-3到1e-4之间 大于或小于这个区间都会导致误差增大 cv9.31 lb9.18 |
-|  15  | backbone改为b2（version43） |  时间6ks |   | unet | backbone和图片分辨率有关 | cv9.31 lb9.20 |
-|  16  | 尝试用gpu训练 |  时间超过9小时 |   | unet | batchsize只能设置为32 | 超时报错 |
-|  17  | `尝试使用tensorboard`[TODO] |   |   | unet | tpu下tensorboard需要单独打log | 直接开启tensorboard会报错 |
-|  18  | 使用tta |   |   | infer阶段 | 上下 左右翻转 旋转180度 | lb9.20 - lb9.21 |
-|  19  | loss函数换为bce |   |   | unet | 学习率1e-3时 cv8.9 5e-4cv9.0 | 还需要继续调整参数 |
-|  20  | 使用外部数据（version54） |   |   | unet | 增加了手工标注的外部数据 cv9.31 lb9.24 | dataset链接：https://www.kaggle.com/baesiann/glomeruli-hubmap-external-1024x1024 论坛里maxwell找到了一篇训练数据对医疗结果影响的体系化说明的论文 |
+|  10  | 直接转为linknet | 时间2.2ks  | 自己验证平均分9.0 未提交 这个版本偏差极大 有一个.81的极低分 | link | batch加大似乎引起了高方差 |  | |
+|  11  | linknet 学习率加大 增加lookahead | 时间3.5ks  | 自己验证平均分9.2 未提交 有一个.86的极低分  | link | 不清楚是lookahead还是学习率的影响 |  | |
+|  12  | 修复seed的bug | 时间3.5ks  | 自己验证平均分9.19 未提交 有一个.88的极低分  | link | 没有每次改变数据顺序 | 似乎shuff没影响？ | |
+|  13  | batch 和学习率还原 删除精确度的metrics |   |   | link | 还原参照物，现在只需要看lookahead和其他项目的影响了 | 这个版本cv只有9.11 但是提交上去却有9.17 | |
+|  14  | 还原为unet，去掉lookahead |  时间3ks |   | unet | 反复调整参数寻找最优学习率 | 目前最优学习率是1e-3到1e-4之间 大于或小于这个区间都会导致误差增大 cv9.31 lb9.18 | |
+|  15  | backbone改为b2 |  时间6ks | cv9.31 lb9.20  | unet | backbone和图片分辨率有关 |  | version43 |
+|  16  | 尝试用gpu训练 |  时间超过9小时 |   | unet | batchsize只能设置为32 | 超时报错 | |
+|  17  | `尝试使用tensorboard`[TODO] |   |   | unet | tpu下tensorboard需要单独打log | 直接开启tensorboard会报错 | |
+|  18  | 使用tta |   | lb9.20 - lb9.21  | infer阶段 | 上下 左右翻转 旋转180度 |  | |
+|  19 | loss函数换为bce |  6ks | 学习率1e-3时 cv8.9 5e-4cv9.0  | unet | 不同损失函数 | 还需要继续调整参数 | version51 |
+|  20 | 使用外部数据 |  6.7k | cv9.31 lb9.24  | unet | 增加了手工标注的外部数据  | dataset链接：https://www.kaggle.com/baesiann/glomeruli-hubmap-external-1024x1024 论坛里maxwell找到了一篇训练数据对医疗结果影响的体系化说明的论文 | version54 |
 
 
 ## 结论
