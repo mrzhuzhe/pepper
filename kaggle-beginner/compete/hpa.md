@@ -93,3 +93,5 @@
 特别的因素：外部数据 和 手工标注
 
 很没技术含量的方案，但是有老外总结了不同类型的外部数据对结果的影响发过论文，还有人分析过针对性的badcase做的特殊数据会对结果有极大提升
+
+待看：无监督标注 https://www.kaggle.com/nayuts/creating-mask-from-bbox-with-deepmac
