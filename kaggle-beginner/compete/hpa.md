@@ -68,7 +68,17 @@
 |  18  | 使用tta |   | lb9.20 - lb9.21  | infer阶段 | 上下 左右翻转 旋转180度 |  | |
 |  19 | loss函数换为bce |  6ks | 学习率1e-3时 cv8.9 5e-4cv9.0  | unet | 不同损失函数 | 还需要继续调整参数 | version51 |
 |  20 | 使用外部数据 |  6.7k | cv9.31 lb9.24  | unet | 增加了手工标注的外部数据  | dataset链接：https://www.kaggle.com/baesiann/glomeruli-hubmap-external-1024x1024 论坛里maxwell找到了一篇训练数据对医疗结果影响的体系化说明的论文 | version54 |
-
+|  21 | 修改优化器为 adam forward | 8.4k | cv9.28 lb9.27  | unet |  | 之前lookahead似乎没什么用，这里突然就有用了 | version59 |
+|  22 | 修改损失函数为bce | 4.5k | cv8.9 lb9.24  | unet |  | cv很低lb却增加了 | version忘记了 |
+|  23 | d48手动标注加入训练 | 8.4k | cv9.31 lb9.29  | unet | 针对性处理暗色情况 |  |  |
+|  24 | threhold 0.4 | 8.4k | cv9.31 lb9.30 pb9.31  | unet |  |  |  |
+|  25 | psedulabel threhold 0.3 | 8.4k | cv9.31 lb9.30 pb9.38 | unet |  |  |  |
+|  26 | psedulabel threhold 0.4 | 8.9k | cv9.31 lb9.30 pb9.40 | unet |  |  |  |
+|  27 | 采用zarr方案 | 2.5k | cv9.31 lb9.30 pb9.42 | zarr + unet |  |  |  |
+|  28 | 图片压缩倍数从3改为2 | 4k | cv9.31 lb9.12 pb9.15 | zarr + unet |  |  |  |
+|  29 | 延长epoch | 8k | cv9.31 lb9.30 pb9.47 | zarr + unet |  |  |  |
+|  30 | th 改为 .3 | 8k | cv9.31 lb9.30 pb9.42 | zarr + unet |  |  |  |
+|  31 | zarr 的pesedulabel加入原油方案 | 8k | cv9.33 lb9.30 pb9.36 | unet |  |  |  |
 
 ## 结论
 
@@ -87,7 +97,7 @@
 |  架构-不同优化器[?] | ---- | ---- | ----- | ---- |
 |  预处理-数据清洗[?] | ---- | 消除错误标注 | ----- | ---- |
 |  预处理-预采样 | ---- | deepflash | ----- | ---- |
-|  `针对性外部数据`[TODO] | ---- | 似乎可以极大提升分数 | ----- | ---- |
+|  `针对性外部数据` | ---- | 似乎可以极大提升分数 | ----- | ---- |
 |  `badcase可视化分析`[TODO] | ---- | ---- | ----- | ---- |
 
 特别的因素：外部数据 和 手工标注
