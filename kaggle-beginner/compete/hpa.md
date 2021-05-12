@@ -78,7 +78,7 @@
 |  28 | 图片压缩倍数从3改为2 | 4k | cv9.31 lb9.12 pb9.15 | zarr + unet |  |  |  |
 |  29 | 延长epoch | 8k | cv9.31 lb9.30 pb9.47 | zarr + unet |  |  |  |
 |  30 | th 改为 .3 | 8k | cv9.31 lb9.30 pb9.42 | zarr + unet |  |  |  |
-|  31 | zarr 的pesedulabel加入原油方案 | 8k | cv9.33 lb9.30 pb9.36 | unet |  |  |  |
+|  31 | zarr 的pesedulabel加入原有方案 | 8k | cv9.33 lb9.30 pb9.36 | unet |  |  |  |
 
 ## 结论
 
@@ -105,3 +105,9 @@
 很没技术含量的方案，但是有老外总结了不同类型的外部数据对结果的影响发过论文，还有人分析过针对性的badcase做的特殊数据会对结果有极大提升
 
 待看：无监督标注 https://www.kaggle.com/nayuts/creating-mask-from-bbox-with-deepmac
+
+# 答案揭晓
+1. 第四名 https://www.kaggle.com/c/hubmap-kidney-segmentation/discussion/238024 对业务场景的深刻理解，对前沿技术的扎实尝试
+2. 如何发现dice对错误的敏感 和缺失的不敏感 https://www.kaggle.com/c/hubmap-kidney-segmentation/discussion/237999
+3. 对 dice 特性的理解 
+4. 对 resnext 和 ranger 优化器的理解
