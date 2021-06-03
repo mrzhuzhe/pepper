@@ -84,3 +84,4 @@
     2. 训练中很不稳定
     最可能的解决办法是用预训练权重来精调
     目前采用的方式是用梯度裁剪的方式解决的
+    3. 目前只用了半长度，可以用全长度来精调 https://www.kaggle.com/c/bms-molecular-translation/discussion/239595#1310687
