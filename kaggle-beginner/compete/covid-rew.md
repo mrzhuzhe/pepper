@@ -60,7 +60,9 @@ chexpert https://stanfordmlgroup.github.io/competitions/chexpert/
 6. wbf iou 0.6 
 7. focal loss 给不平衡的更多权重，但是这个没看到参数
 8. 根据分数定融合权重
-9. 标签平滑、
+9. 标签平滑
+10. pcam池化
+11. noise student 和 自蒸馏
 
 # 杂谈
 
@@ -73,3 +75,5 @@ chexpert https://stanfordmlgroup.github.io/competitions/chexpert/
 4. 标签平滑 psedulabel 和 自蒸馏
 
 5. 模型融合 和 vit
+
+6. 查一下adam和adamw的区别
