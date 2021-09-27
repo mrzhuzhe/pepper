@@ -134,3 +134,4 @@ results
 .vscode
 kaggle-beginner/basic/temp.md
 kaggle-beginner/basic/test.py
+.DS_Store
