@@ -121,9 +121,9 @@ python assign03/run.py
 
 ## 神经网络可视化
 
-1. /nn-visualize/grad_cam 通过梯度提升实现
-2. /nn-visualize/integrated_gradients 通过梯度插补实现
-3. /nn-visualize/visualizing_what_convnets_learn 可视化卷积每一层学到的内容
+1. [敏感度]/nn-visualize/grad_cam 通过梯度提升实现
+2. [敏感度]/nn-visualize/integrated_gradients 通过梯度插补实现
+3. [卷积]/nn-visualize/visualizing_what_convnets_learn 可视化卷积每一层学到的内容
 
 ## resouce & meterial refference
  - some solutions https://github.com/ZacBi/CS224n-2019-solutions
